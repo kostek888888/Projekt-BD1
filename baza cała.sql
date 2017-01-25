@@ -1,3 +1,113 @@
+DROP TABLE Wiezniowie CASCADE CONSTRAINTS;
+DROP TABLE Grupa CASCADE CONSTRAINTS;
+DROP TABLE Pracownicy CASCADE CONSTRAINTS;
+DROP TABLE Zaopatrzenie CASCADE CONSTRAINTS;
+DROP TABLE Obowiazki CASCADE CONSTRAINTS;
+DROP TABLE Cele CASCADE CONSTRAINTS;
+DROP TABLE Oddzial CASCADE CONSTRAINTS;
+DROP TABLE Wyroki CASCADE CONSTRAINTS;
+DROP TABLE Przywileje_kary CASCADE CONSTRAINTS;
+DROP TABLE Lista CASCADE CONSTRAINTS;
+
+
+
+
+
+
+
+CREATE TABLE Lista (
+id_listy NUMBER CONSTRAINT lista_pk PRIMARY KEY,
+nazwa VARCHAR2(50) NOT NULL,
+opis VARCHAR2(200)
+);
+
+
+CREATE TABLE Przywileje_kary (
+id_przyw_kar NUMBER CONSTRAINT przywileje_kary_pk PRIMARY KEY,
+data_rozpoczecia DATE NOT NULL,
+data_zakonczenia DATE NOT NULL,
+id_listy NUMBER NOT NULL,
+id_wieznia NUMBER NOT NULL,
+CONSTRAINT przywKar_lista_fk FOREIGN KEY (id_listy) REFERENCES Lista(id_listy)
+);
+
+CREATE TABLE Wyroki (
+id_wyroku NUMBER constraint wyrok_pk PRIMARY KEY,
+opis_wyroku VARCHAR(300) NOT NULL,
+data_rozpoczecia DATE NOT NULL,
+data_zakonczenia DATE NOT NULL
+);
+
+CREATE TABLE Oddzial (
+id_oddzialu NUMBER CONSTRAINT oddzial_pk PRIMARY KEY,
+nazwa_oddzialu VARCHAR2(80) NOT NULL
+);
+
+CREATE TABLE Cele (
+id_celi NUMBER CONSTRAINT cele_pk PRIMARY KEY,
+max_ilosc_osob NUMBER NOT NULL,
+akt_ilosc_osob NUMBER NOT NULL,
+id_oddzialu NUMBER,
+CONSTRAINT cele_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu)
+);
+
+CREATE TABLE Obowiazki(
+id_obowiazku NUMBER CONSTRAINT id_obowiazku_pk PRIMARY KEY,
+opis_obowiazku VARCHAR2(120) NOT NULL,
+data_zakonczenia DATE NOT NULL,
+id_oddzialu NUMBER NOT NULL,
+CONSTRAINT obowiazki_odzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu)
+);
+
+
+CREATE TABLE Zaopatrzenie(
+id_zaopatrzenia NUMBER CONSTRAINT id_zaopatrzenia_pk PRIMARY KEY,
+rodzaj_zaopatrzenia VARCHAR2(70) NOT NULL,
+nazwa_dostawcy VARCHAR2(120) NOT NULL,
+stan_biezacy VARCHAR2(50) NOT NULL,
+id_oddzialu NUMBER NOT NULL,
+CONSTRAINT  zaopatrzenie_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu)
+);
+
+
+CREATE TABLE Pracownicy (
+id_pracownika NUMBER CONSTRAINT pracownik_pk PRIMARY KEY,
+imie VARCHAR2(50) NOT NULL,
+nazwisko VARCHAR2(100) NOT NULL,
+pesel CHAR(11) NOT NULL CONSTRAINT pracownik_uni UNIQUE,
+adres  VARCHAR2(100) NOT NULL,
+pensja NUMBER NOT NULL,
+staz_msc Number NOT NULL,
+telefon VARCHAR2(11) NOT NULL,
+id_oddzialu NUMBER,
+id_obowiazku NUMBER NOT NULL,
+CONSTRAINT  pracownik_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu),
+CONSTRAINT  pracownik_obowiazek_fk FOREIGN KEY (id_obowiazku) REFERENCES Obowiazki(id_obowiazku)
+);
+
+CREATE TABLE Grupa (
+id_grupy NUMBER CONSTRAINT grupa_wiezienna_pk PRIMARY KEY,
+nazwa_grupy VARCHAR2(50) NOT NULL,
+opis_grupy VARCHAR2(250) NOT NULL,
+id_celi NUMBER NOT NULL,
+CONSTRAINT grupa_cele_fk FOREIGN KEY (id_celi) REFERENCES Cele(id_celi)
+);
+
+CREATE TABLE Wiezniowie (
+id_wieznia NUMBER CONSTRAINT wiezien_pk PRIMARY KEY,
+imie VARCHAR2(50) NOT NULL,
+nazwisko VARCHAR2(100) NOT NULL,
+pesel CHAR(11) NOT NULL,
+id_wyroku NUMBER NOT NULL,
+id_grupy NUMBER NOT NULL,
+id_nagrod_kar NUMBER NOT NULL,
+id_obowiazku NUMBER,
+CONSTRAINT wieznien_wyroki_fk FOREIGN KEY (id_wyroku) REFERENCES Wyroki(id_wyroku),
+CONSTRAINT wieznien_grupa_fk FOREIGN KEY (id_grupy) REFERENCES Grupa(id_grupy),
+CONSTRAINT wieznien_nagrodyKary_fk FOREIGN KEY(id_nagrod_kar) REFERENCES Przywileje_kary(id_przyw_kar),
+CONSTRAINT wiezien_obowiazek_fk FOREIGN KEY (id_obowiazku) REFERENCES Obowiazki(id_obowiazku)
+);
+
 -----------------------------------DELETE--------------------------------------------
 DELETE FROM Wiezniowie;
 DELETE FROM Grupa;
@@ -16,19 +126,19 @@ DELETE FROM Lista;
 -----LISTA-----------
 INSERT INTO Lista VALUES(1,'Prawo do spaceru','Przysluguje na wejsciu');
 INSERT INTO Lista VALUES(2,'Przepustka jednodniowa','Tylko za wyjatowo dobre zachowanie, tylko dla osadzonych za drobne przestepstwa');
-INSERT INTO Lista VALUES(3,'Widzenie z rodzinπ','Przysluguje na wejsciu');
+INSERT INTO Lista VALUES(3,'Widzenie z rodzinƒÖ','Przysluguje na wejsciu');
 INSERT INTO Lista VALUES(4,'Izolatka','');
 INSERT INTO Lista VALUES(5,'Tygodniowa izolatka','Gdy izolatka nie odnosi skutku');
-INSERT INTO Lista VALUES(6,'Dodatkowa ksiπøka z biblioteki','Dla zaczytanych za dobre sprawowanie');
-INSERT INTO Lista VALUES(7,'Oglπdanie telewizji','');
+INSERT INTO Lista VALUES(6,'Dodatkowa ksiƒÖ≈ºka z biblioteki','Dla zaczytanych za dobre sprawowanie');
+INSERT INTO Lista VALUES(7,'OglƒÖdanie telewizji','');
 INSERT INTO Lista VALUES(8,'Telefon do rodziny','');
-INSERT INTO Lista VALUES(9,'WybÛr rodzaju posi≥ku','');
+INSERT INTO Lista VALUES(9,'Wyb√≥r rodzaju posi≈Çku','');
 INSERT INTO Lista VALUES(10,'Widzemie z adwokatem','');
 INSERT INTO Lista VALUES(11,'Zakaz pracy','');
-INSERT INTO Lista VALUES(12,'Przywilej pracy','Przys≥uguje na wejúciu');
-INSERT INTO Lista VALUES(13,'Uczestniczenie w grach zespolowych','NiedostÍpne dla wiÍüniÛw z powaønymi i bardzo powaønymi wykroczeniami');
+INSERT INTO Lista VALUES(12,'Przywilej pracy','Przys≈Çuguje na wej≈õciu');
+INSERT INTO Lista VALUES(13,'Uczestniczenie w grach zespolowych','Niedostƒôpne dla wiƒô≈∫ni√≥w z powa≈ºnymi i bardzo powa≈ºnymi wykroczeniami');
 INSERT INTO Lista VALUES(14,'Wczesniejsze zwolnienie','Za bardzo dobre sprawowanie');
-INSERT INTO Lista VALUES(15,'Prawo do ubiegania sie o zmiane cel','NiedostÍpne dla wiÍüniÛw z powaønymi i bardzo powaønymi wykroczeniami');
+INSERT INTO Lista VALUES(15,'Prawo do ubiegania sie o zmiane cel','Niedostƒôpne dla wiƒô≈∫ni√≥w z powa≈ºnymi i bardzo powa≈ºnymi wykroczeniami');
 
 
 
@@ -65,7 +175,7 @@ INSERT INTO Wyroki VALUES(8,'Pedofilia',      TO_DATE('2000/05/07', 'yyyy/mm/dd'
 INSERT INTO Wyroki VALUES(9,'Kradzierz',      TO_DATE('2017/05/08', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(10,'Napad na bank',      TO_DATE('2017/05/09', 'yyyy/mm/dd'),      TO_DATE('2020/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(11,'Rozboje',      TO_DATE('2017/05/13', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
-INSERT INTO Wyroki VALUES(12,'Posiadanie narkotykÛw',      TO_DATE('2017/01/13', 'yyyy/mm/dd'),      TO_DATE('2018/05/13', 'yyyy/mm/dd'));
+INSERT INTO Wyroki VALUES(12,'Posiadanie narkotyk√≥w',      TO_DATE('2017/01/13', 'yyyy/mm/dd'),      TO_DATE('2018/05/13', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(13,'Rabunek',      TO_DATE('2005/05/17', 'yyyy/mm/dd'),      TO_DATE('2006/08/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(14,'Rozboje',      TO_DATE('2017/05/15', 'yyyy/mm/dd'),      TO_DATE('2018/04/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(15,'Rozboje',      TO_DATE('2017/05/23', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
@@ -78,16 +188,16 @@ INSERT INTO Oddzial VALUES(2,'Blok wiezienny: Zaostrzony rygor');
 INSERT INTO Oddzial VALUES(3,'Blok wiezienny: Izolatki');
 INSERT INTO Oddzial VALUES(4,'Kuchnia');
 INSERT INTO Oddzial VALUES(5,'Magazyn zaopatrzenia');
-INSERT INTO Oddzial VALUES(6,'Oddzia≥ medyczny');
+INSERT INTO Oddzial VALUES(6,'Oddzia≈Ç medyczny');
 INSERT INTO Oddzial VALUES(7,'Warsztat pracy');
 INSERT INTO Oddzial VALUES(8,'Pralnia');
 INSERT INTO Oddzial VALUES(9,'Biblioteka'); 
-INSERT INTO Oddzial VALUES(10,'£azienka dla wiÍøniÛw');
-INSERT INTO Oddzial VALUES(11,'£azienka dla pracownikÛw');
-INSERT INTO Oddzial VALUES(12,'RachunkowoúÊ');
+INSERT INTO Oddzial VALUES(10,'≈Åazienka dla wiƒô≈ºni√≥w');
+INSERT INTO Oddzial VALUES(11,'≈Åazienka dla pracownik√≥w');
+INSERT INTO Oddzial VALUES(12,'Rachunkowo≈õƒá');
 INSERT INTO Oddzial VALUES(13,'Pokoje personelu');
 INSERT INTO Oddzial VALUES(14,'Gabinet dyrektora');
-INSERT INTO Oddzial VALUES(15,'Biuro pracownikÛw');
+INSERT INTO Oddzial VALUES(15,'Biuro pracownik√≥w');
 
 
 
@@ -138,8 +248,8 @@ INSERT INTO Obowiazki VALUES(18,'Praca w bibliotece',TO_DATE('2020/04/30', 'yyyy
 INSERT INTO Obowiazki VALUES(19,'Nadzor nad wiezniami',TO_DATE('2020/02/25', 'yyyy/mm/dd'),  3);
 INSERT INTO Obowiazki VALUES(22,'Praca biurowa',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   15);
 INSERT INTO Obowiazki VALUES(23,'Praca biurowa',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   15);
-INSERT INTO Obowiazki VALUES(24,'Prowadzenie ksiÍgowoúci',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   12);
-INSERT INTO Obowiazki VALUES(25,'Obowiπzki dyrektorskiei',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   14);
+INSERT INTO Obowiazki VALUES(24,'Prowadzenie ksiƒôgowo≈õci',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   12);
+INSERT INTO Obowiazki VALUES(25,'ObowiƒÖzki dyrektorskiei',TO_DATE('2017/02/12', 'yyyy/mm/dd'),   14);
 
 
 
@@ -158,13 +268,13 @@ INSERT INTO Zaopatrzenie VALUES(10,'Narzedzia','OBI','w zapasie',5);
 INSERT INTO Zaopatrzenie VALUES(11,'Artykuly chemiczne','Supermarket Jula','w zapasie',8);
 INSERT INTO Zaopatrzenie VALUES(12,'Wyposazenie medyczne','Sklep medyczny','brak',6);
 INSERT INTO Zaopatrzenie VALUES(13,'Artykuly chemiczne','Supermarket Jula','w zapasie',8);
-INSERT INTO Zaopatrzenie VALUES(14,'Ubrania','Szwalnia Mariola i spÛlka','w zapasie',1);
-INSERT INTO Zaopatrzenie VALUES(15,'Ubrania','Szwalnia Mariola i spÛlka','brak',2);
-INSERT INTO Zaopatrzenie VALUES(16,'Ubrania','Szwalnia Mariola i spÛlka','brak',3);
-INSERT INTO Zaopatrzenie VALUES(17,'Ubrania','Szwalnia Mariola i spÛlka','w zapasie',14);
-INSERT INTO Zaopatrzenie VALUES(18,'Posciel','Szwalnia Mariola i spÛlka','w zapasie',1);
-INSERT INTO Zaopatrzenie VALUES(19,'Posciel','Szwalnia Mariola i spÛlka','w zapasie',2);
-INSERT INTO Zaopatrzenie VALUES(20,'Posciel','Szwalnia Mariola i spÛlka','w zapasie',3);
+INSERT INTO Zaopatrzenie VALUES(14,'Ubrania','Szwalnia Mariola i sp√≥lka','w zapasie',1);
+INSERT INTO Zaopatrzenie VALUES(15,'Ubrania','Szwalnia Mariola i sp√≥lka','brak',2);
+INSERT INTO Zaopatrzenie VALUES(16,'Ubrania','Szwalnia Mariola i sp√≥lka','brak',3);
+INSERT INTO Zaopatrzenie VALUES(17,'Ubrania','Szwalnia Mariola i sp√≥lka','w zapasie',14);
+INSERT INTO Zaopatrzenie VALUES(18,'Posciel','Szwalnia Mariola i sp√≥lka','w zapasie',1);
+INSERT INTO Zaopatrzenie VALUES(19,'Posciel','Szwalnia Mariola i sp√≥lka','w zapasie',2);
+INSERT INTO Zaopatrzenie VALUES(20,'Posciel','Szwalnia Mariola i sp√≥lka','w zapasie',3);
 INSERT INTO Zaopatrzenie VALUES(21,'Artykuly higieny osobistej','Supermarket Tesco','w zapasie',10);
 INSERT INTO Zaopatrzenie VALUES(22,'Artykuly higieny osobistej','Supermarket Tesco','w zapasie',11);
 
@@ -176,7 +286,7 @@ INSERT INTO Pracownicy VALUES(2,'Marek','Tomaszewski','67011103042','Kielce Jagi
 INSERT INTO Pracownicy VALUES(3,'Tomek','Adamczyk','54020103043','Kielce Niska 23',4600,6,731345394,2,2);
 INSERT INTO Pracownicy VALUES(4,'Michal','Nowak','58020103044','Kielce Slaska 31',4300,12,731283482,2,3);
 INSERT INTO Pracownicy VALUES(5,'Mateusz','Kowal','58020103045','Ostrowiec Kielecka 1',4200,10,731456482,3,4);
-INSERT INTO Pracownicy VALUES(6,'Adam','Nowakowski','58020103046','Busko-ZdrÛj Rynek 5',3800,21,731283482,3,5);
+INSERT INTO Pracownicy VALUES(6,'Adam','Nowakowski','58020103046','Busko-Zdr√≥j Rynek 5',3800,21,731283482,3,5);
 INSERT INTO Pracownicy VALUES(7,'Wojtek','Kowalski','58020103047','Kielce Jagiellonska 6',4000,12,723283482,5,10);
 INSERT INTO Pracownicy VALUES(8,'Lukasz','Nowaczek','58020103048','Bodzentyn Rynek 32',2000,36,731284562,6,11);
 INSERT INTO Pracownicy VALUES(9,'Michal','Zapalka','58020103049','Kielce Starodomaszowska 3',21,1900,731283422,6,12);
@@ -226,3 +336,25 @@ INSERT INTO Wiezniowie VALUES(12,'Tomek','Kowalski','93121238474',10,2,12,NULL);
 INSERT INTO Wiezniowie VALUES(13,'Tomek','Kowalski','93122328574',11,1,13,NULL);
 INSERT INTO Wiezniowie VALUES(14,'Tomek','Kowalski','93122323474',8,1,14,NULL);
 INSERT INTO Wiezniowie VALUES(15,'Tomek','Kowalski','93122328474',12,1,15,NULL);
+
+
+
+
+
+
+                      SELECT * FROM obowiazki;
+                      SELECT * FROM cele;
+                      SELECT * FROM wyroki;
+                      SELECT * FROM pracownicy;
+                      SELECT * FROM zaopatrzenie;
+                      SELECT * FROM lista WHERE opis LIKE 'Przysluguje%';
+                      SELECT * FROM wiezniowie;
+                      SELECT * FROM oddzial;
+                      SELECT * FROM grupa;
+                      SELECT * FROM przywileje_kary;
+
+
+
+
+
+
