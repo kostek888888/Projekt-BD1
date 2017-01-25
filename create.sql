@@ -11,6 +11,7 @@ DROP TABLE Lista CASCADE CONSTRAINTS;
 
 
 
+
 CREATE TABLE Lista (
 id_listy NUMBER CONSTRAINT lista_pk PRIMARY KEY,
 nazwa VARCHAR2(50) NOT NULL,
@@ -34,12 +35,17 @@ data_rozpoczecia DATE NOT NULL,
 data_zakonczenia DATE NOT NULL
 );
 
+CREATE TABLE Oddzial (
+id_oddzialu NUMBER CONSTRAINT oddzial_pk PRIMARY KEY,
+nazwa_oddzialu VARCHAR2(80) NOT NULL,
+);
+
 CREATE TABLE Cele (
 id_celi NUMBER CONSTRAINT cele_pk PRIMARY KEY,
 max_ilosc_osob NUMBER NOT NULL,
 akt_ilosc_osob NUMBER NOT NULL,
 id_oddzialu number not null,
-CONSTRAINT cele_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzialy(id_oddzialu)
+CONSTRAINT cele_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu)
 );
 
 CREATE TABLE Obowiazki(
@@ -50,14 +56,7 @@ id_oddzialu NUMBER NOT NULL,
 CONSTRAINT obowiazki_odzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu)
 );
 
-CREATE TABLE Oddzial (
-id_oddzialu NUMBER CONSTRAINT oddzial_pk PRIMARY KEY,
-nazwa_oddzialu VARCHAR2(80) NOT NULL,
-id_obowiazku NUMBER NOT NULL,
-id_celi NUMBER,
 
-CONSTRAINT oddzial_cele_fk FOREIGN KEY (id_celi) REFERENCES Cele(id_celi)
-);
 
 
 CREATE TABLE Zaopatrzenie(
