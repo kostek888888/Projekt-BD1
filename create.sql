@@ -164,7 +164,7 @@ INSERT INTO Wyroki VALUES(5,'Rabunek',      TO_DATE('2016/05/05', 'yyyy/mm/dd'),
 INSERT INTO Wyroki VALUES(6,'Wymuszenia z bronia i zaobijstwo',      TO_DATE('2010/07/03', 'yyyy/mm/dd'),      TO_DATE('2030/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(7,'Gwalt',      TO_DATE('2012/01/06', 'yyyy/mm/dd'),      TO_DATE('2027/05/06', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(8,'Pedofilia',      TO_DATE('2000/05/07', 'yyyy/mm/dd'),      TO_DATE('2030/05/07', 'yyyy/mm/dd'));
-INSERT INTO Wyroki VALUES(9,'Kradzierz',      TO_DATE('2017/05/08', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
+INSERT INTO Wyroki VALUES(9,'Kradzież',      TO_DATE('2017/05/08', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(10,'Napad na bank',      TO_DATE('2017/05/09', 'yyyy/mm/dd'),      TO_DATE('2020/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(11,'Rozboje',      TO_DATE('2017/05/13', 'yyyy/mm/dd'),      TO_DATE('2018/05/03', 'yyyy/mm/dd'));
 INSERT INTO Wyroki VALUES(12,'Posiadanie narkotyk?w',      TO_DATE('2017/01/13', 'yyyy/mm/dd'),      TO_DATE('2018/05/13', 'yyyy/mm/dd'));
