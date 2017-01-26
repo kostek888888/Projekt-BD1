@@ -1,0 +1,102 @@
+html {
+  background-color: #EEE;
+  color: black;
+  font-family: Arial;
+}
+body  {
+  margin: 0;
+  height: 100vh;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}
+
+.menu {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  position: fixed;
+  align-items: center;
+  background-color: orange;
+  width:100%;
+}
+form{
+  display: flex;
+}
+.menu-btn  {
+  font-family: Arial;
+  font-size: 11pt;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  background-color: orange;
+  color:white;
+  width: 120px;
+  height: 40px;
+  margin: 2px;
+  border-style: none;
+  border-bottom-style: solid;
+  border-color: white;
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: bold;
+}
+.menu-btn:hover  {
+  background-color: #ffb42b;
+}
+.mode {
+  z-index: 1;
+  position: fixed;
+  background-color: #DDD;
+  height: 100vh;
+  height: 100%;
+  width: 250px;
+  padding-top: 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-mode {
+  text-align: center;
+  background-color: #CCC;
+  height: 25px;
+  margin-bottom: 5px;
+  border-right-style: solid;
+  border-color: black;
+  padding-top: 5px;
+  font-weight: bold;
+}
+
+.btn-mode:hover {
+  background-color: #BBB;
+  border-color: white;
+}
+
+.content  {
+  position: relative;
+  padding-left: 280px;
+  padding-top: 60px;
+  color:black;
+}
+
+.widok  {
+  display: flex;
+  flex-direction: column;
+  width:600px;
+}
+
+.content-btn  {
+  height: 30px;
+  font-size: 13pt;
+  width: 600px;
+}
+
+.customInput  {
+  height:30px;
+  font-size: 13pt;
+}
