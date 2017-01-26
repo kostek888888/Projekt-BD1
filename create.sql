@@ -1,4 +1,3 @@
--------------------------------DROP-------------------------------------------------
 DROP TABLE Wiezniowie CASCADE CONSTRAINTS;
 DROP TABLE Grupa CASCADE CONSTRAINTS;
 DROP TABLE Pracownicy CASCADE CONSTRAINTS;
@@ -10,7 +9,7 @@ DROP TABLE Wyroki CASCADE CONSTRAINTS;
 DROP TABLE Przywileje_kary CASCADE CONSTRAINTS;
 DROP TABLE Lista CASCADE CONSTRAINTS;
 
--------------------------CREATE-------------------------------------------------------
+
 CREATE TABLE Lista (
 id_listy NUMBER CONSTRAINT lista_pk PRIMARY KEY,
 nazwa VARCHAR2(50) NOT NULL,
@@ -71,10 +70,11 @@ id_pracownika NUMBER CONSTRAINT pracownik_pk PRIMARY KEY,
 imie VARCHAR2(50) NOT NULL,
 nazwisko VARCHAR2(100) NOT NULL,
 pesel CHAR(11) NOT NULL CONSTRAINT pracownik_uni UNIQUE,
+wiek number not null,
 adres  VARCHAR2(100) NOT NULL,
 pensja NUMBER NOT NULL,
 staz_msc Number NOT NULL,
-telefon VARCHAR2(11) NOT NULL,
+telefon VARCHAR2(11),
 id_oddzialu NUMBER,
 id_obowiazku NUMBER NOT NULL,
 CONSTRAINT  pracownik_oddzial_fk FOREIGN KEY (id_oddzialu) REFERENCES Oddzial(id_oddzialu),
@@ -94,6 +94,7 @@ id_wieznia NUMBER CONSTRAINT wiezien_pk PRIMARY KEY,
 imie VARCHAR2(50) NOT NULL,
 nazwisko VARCHAR2(100) NOT NULL,
 pesel CHAR(11) NOT NULL,
+wiek number not null,
 id_wyroku NUMBER NOT NULL,
 id_grupy NUMBER NOT NULL,
 id_nagrod_kar NUMBER NOT NULL,
@@ -103,3 +104,4 @@ CONSTRAINT wieznien_grupa_fk FOREIGN KEY (id_grupy) REFERENCES Grupa(id_grupy),
 CONSTRAINT wieznien_nagrodyKary_fk FOREIGN KEY(id_nagrod_kar) REFERENCES Przywileje_kary(id_przyw_kar),
 CONSTRAINT wiezien_obowiazek_fk FOREIGN KEY (id_obowiazku) REFERENCES Obowiazki(id_obowiazku)
 );
+
