@@ -8,7 +8,16 @@ DROP TABLE Oddzial CASCADE CONSTRAINTS;
 DROP TABLE Wyroki CASCADE CONSTRAINTS;
 DROP TABLE Przywileje_kary CASCADE CONSTRAINTS;
 DROP TABLE Lista CASCADE CONSTRAINTS;
+DROP TABLE Archiwum_wiezniow CASCADE CONSTRAINTS;
 
+
+
+CREATE TABLE Archiwum_wiezniow(
+imie VARCHAR2(50),
+nazwisko VARCHAR2(100),
+pesel CHAR(11),
+data_wyjscia DATE
+);
 
 CREATE TABLE Lista (
 id_listy NUMBER CONSTRAINT lista_pk PRIMARY KEY,
@@ -104,4 +113,3 @@ CONSTRAINT wieznien_grupa_fk FOREIGN KEY (id_grupy) REFERENCES Grupa(id_grupy),
 CONSTRAINT wieznien_nagrodyKary_fk FOREIGN KEY(id_nagrod_kar) REFERENCES Przywileje_kary(id_przyw_kar),
 CONSTRAINT wiezien_obowiazek_fk FOREIGN KEY (id_obowiazku) REFERENCES Obowiazki(id_obowiazku)
 );
-

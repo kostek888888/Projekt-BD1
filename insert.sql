@@ -169,7 +169,6 @@ INSERT INTO Zaopatrzenie VALUES(21,'Artykuly higieny osobistej','Supermarket Tes
 INSERT INTO Zaopatrzenie VALUES(22,'Artykuly higieny osobistej','Supermarket Tesco','w zapasie',11);
 
 
---id oddzialu takie samo
 -----------PRACOWNICY---------
 INSERT INTO Pracownicy VALUES(1,'Adam','Nowak','54020103040',30,'Kielce Warszawska 3',6000,48,731283480,14,25);            
 INSERT INTO Pracownicy VALUES(2,'Marek','Tomaszewski','67011103042',40,'Kielce Jagiellonska 32',2500,30,731324542,1,1);
@@ -226,5 +225,3 @@ INSERT INTO Wiezniowie VALUES(12,'Tomek','Kowalski','93121238474',43,10,2,12,NUL
 INSERT INTO Wiezniowie VALUES(13,'Tomek','Kowalski','93122328574',56,11,1,13,NULL);
 INSERT INTO Wiezniowie VALUES(14,'Tomek','Kowalski','93122323474',12,8,1,14,NULL);
 INSERT INTO Wiezniowie VALUES(15,'Tomek','Kowalski','93122328474',43,12,1,15,NULL);
-
-
