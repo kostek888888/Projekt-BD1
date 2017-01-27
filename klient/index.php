@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+include_once  "main.php";
+
+$dataBase = new dataBase("localhost", "SYSTEM", "123456","XE");
+$dataBase->connect();
+ ?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -50,22 +56,10 @@
           <a href="views.php"><div class="btn-mode">
             Views
           </div></a>
-          <a href="selects.php"><div class="btn-mode">
-            Selects
-          </div></a>
-          <a href="inserts.php"><div class="btn-mode">
-            Inserts
-          </div></a>
-          <a href="drop.php"><div class="btn-mode">
-            Drop Table
-          </div></a>
-          <a href="delete.php"><div class="btn-mode">
-            Delete
-          </div></a>
         </div>
 
 
-        
+
 
         </div>
     </body>

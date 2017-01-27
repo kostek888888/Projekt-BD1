@@ -50,18 +50,6 @@
           <a href="views.php"><div class="btn-mode">
             Views
           </div></a>
-          <a href="selects.php"><div class="btn-mode">
-            Selects
-          </div></a>
-          <a href="inserts.php"><div class="btn-mode">
-            Inserts
-          </div></a>
-          <a href="drop.php"><div class="btn-mode">
-            Drop Table
-          </div></a>
-          <a href="delete.php"><div class="btn-mode">
-            Delete
-          </div></a>
         </div>
 
 
@@ -86,10 +74,6 @@
             <button class="content-btn" name="tabela" type="submit" value="15">
               Widok dostępnych cel
             </button>
-            <br><br>
-            Napisz wlasny widok:
-            <input class="customInput" type="text" name="createView" value="CREATE VIEW nazwa AS ..."><br>
-            <button class="content-btn" type="subnit">Stworz i wyswietl</button>
           </form>
 
         </div>
