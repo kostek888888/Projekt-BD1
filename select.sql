@@ -2,6 +2,7 @@ SET serveroutput ON
 --funkcja wyliczajaca wiek z peselu
 
 
+
 CREATE OR REPLACE FUNCTION wylicz_wiek(pesel IN char)
 RETURN NUMBER
 IS
