@@ -72,26 +72,31 @@ class dataBase{
     $queryResult = $this->connection->query($qquery);
     $result = $this->connection->query($qquery)->fetchAll();
     $rowCount = $this->connection->query($qquery)->fetchColumn();
-    if($rowCount==0)
+    if($rowCount === 0)
       echo "Brak rekordow do wypisania.";
       else {
-        foreach ($result as $row) {
-          echo '<br />';
+
 
             $contentSplited = explode( ",",$content);
             $wordCount = sizeof($contentSplited);
-            for($j = 0; $j < $wordCount; $j++ ){
-              if($j === 0)
-                echo "<p>";
-              if($j === $wordCount)
-                echo "</p>";
-              echo $contentSplited[$j].": ".$row[$contentSplited[$j]]." ";
-            }
+            echo "<tr>";
+            for($j = 0; $j < count($contentSplited); $j++ ){
 
+              echo "<td>".$contentSplited[$j]."</td>";
+            }
+            echo "</tr>";
+            foreach ($result as $row) {
+              echo "<tr>";
+              for($j = 0; $j < count($contentSplited); $j++ ){
+
+                echo "<td>".$row[$contentSplited[$j]]."</td>";
+              }
+
+            }
         }
       }
 
-  }
+
 };
 
 

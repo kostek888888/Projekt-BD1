@@ -66,7 +66,7 @@ $nazwyKolumn = $_GET['tabela'];
 
 
         <div class="content">
-          <table>
+          <table class="tabelaCont" border="1">
           <?php
             $dataBase->printQueryResult($queryColumns[$idZapytania], $zapytania[$idZapytania]);
            ?>
